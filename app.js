@@ -152,7 +152,6 @@ const checkRow = () => {
           showMessage("Not a Word!");
           return;
         } else {
-          console.log("guess is " + guess + " wordle is " + wordle);
           flipTile();
           if (wordle == guess) {
             showMessage("Good Job!");
@@ -216,7 +215,7 @@ const flipTile = () => {
       setTimeout(() => {
         tile.classList.add("flip");
         tile.classList.add(guess[index].color);
-        addColorToKey(guess[(index.letter, guess[index].color)]);
+        addColorToKey(guess[index].letter, guess[index].color);
       }, 500 * index);
     });
   });
