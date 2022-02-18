@@ -15,5 +15,18 @@
       <div class="key-container"></div>
     </div>
     <script src="app.js"></script>
+    <script>
+      document.addEventListener("keydown", function (event) {
+        if (event.keyCode == 13) {
+          handleClick("ENTER");
+          console.log("pressed enter");
+        } else if (event.keyCode == 8) {
+          handleClick("<<");
+          console.log("pressed backspace");
+        } else if (event.keyCode >= 65 && event.keyCode <= 90) {
+          handleClick(String.fromCharCode(event.keyCode));
+        }
+      });
+    </script>
   </body>
 </html>
