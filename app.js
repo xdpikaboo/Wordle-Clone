@@ -80,20 +80,22 @@ tiles.forEach((row, rowIndex) => {
 });
 
 const handleClick = (key) => {
-  console.log("clicked", key);
-  if (key == "<<") {
-    deleteLetter();
-    return;
+  if (!isGameOver) {
+    console.log("clicked", key);
+    if (key == "<<") {
+      deleteLetter();
+      return;
+    }
+    if (key == "ENTER") {
+      checkRow();
+      return;
+    }
+    addLetter(key);
   }
-  if (key == "ENTER") {
-    checkRow();
-    return;
-  }
-  addLetter(key);
 };
 
 const addLetter = (letter) => {
-  if (currentTile < 5 && currentRow < 6 && isGameOver == false) {
+  if (currentTile < 5 && currentRow < 6) {
     const tile = document.getElementById(
       "row-" + currentRow + "-tile-" + currentTile
     );
@@ -106,7 +108,7 @@ const addLetter = (letter) => {
 };
 
 const deleteLetter = () => {
-  if (currentTile > 0 && isGameOver == false) {
+  if (currentTile > 0) {
     currentTile--;
     const tile = document.getElementById(
       "row-" + currentRow + "-tile-" + currentTile
@@ -121,7 +123,7 @@ const deleteLetter = () => {
 const checkRow = () => {
   const guess = tiles[currentRow].join("");
   console.log("guess", guess);
-  if (currentTile > 4 && isGameOver == false) {
+  if (currentTile > 4) {
     fetch(`http://localhost:8000/check/?word=${guess}`)
       .then((response) => response.json())
       .then((json) => {
