@@ -6,11 +6,20 @@ let isGameOver = false;
 let wordle;
 
 const getWordle = () => {
-  fetch("http://localhost:8000/word")
+  fetch(
+    "https://random-words5.p.rapidapi.com/getMultipleRandom?count=1&wordLength=5",
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host": "random-words5.p.rapidapi.com",
+        "x-rapidapi-key": "82d3059513msh2cf51c4b98b492dp1aa518jsnb06dd1b8449b",
+      },
+    }
+  )
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
-      wordle = json.toUpperCase();
+      wordle = json[0].toUpperCase();
     })
     .catch((error) => console.log(error));
 };
@@ -124,11 +133,22 @@ const checkRow = () => {
   const guess = tiles[currentRow].join("");
   console.log("guess", guess);
   if (currentTile > 4 && isGameOver == false) {
-    fetch(`http://localhost:8000/check/?word=${guess}`)
+    fetch(
+      "https://twinword-word-graph-dictionary.p.rapidapi.com/association/?entry=" +
+        guess,
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "twinword-word-graph-dictionary.p.rapidapi.com",
+          "x-rapidapi-key":
+            "82d3059513msh2cf51c4b98b492dp1aa518jsnb06dd1b8449b",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        if (json == "Entry word not found") {
+        if (json.result_msg == "Entry word not found") {
           showMessage("Not a Word!");
           return;
         } else {
