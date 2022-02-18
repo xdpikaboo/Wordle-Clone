@@ -3,7 +3,19 @@ const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
 let isGameOver = false;
-const wordle = "SUPER";
+let wordle;
+
+const getWordle = () => {
+  fetch("http://localhost:8000/word")
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      wordle = json.toUpperCase();
+    })
+    .catch((error) => console.log(error));
+};
+getWordle();
+
 const keys = [
   "Q",
   "W",
@@ -107,25 +119,37 @@ const deleteLetter = () => {
 };
 
 const checkRow = () => {
+  const guess = tiles[currentRow].join("");
+  console.log("guess", guess);
   if (currentTile > 4 && isGameOver == false) {
-    const guess = tiles[currentRow].join("");
-    console.log(guess);
-    flipTile();
-    if (wordle == guess) {
-      showMessage("Good Job!");
-      isGameOver = true;
-      return;
-    } else {
-      if (currentRow >= 5) {
-        showMessage("U Suck!");
-        isGameOver = true;
-        return;
-      }
-      if (currentRow < 5) {
-        currentRow++;
-        currentTile = 0;
-      }
-    }
+    fetch(`http://localhost:8000/check/?word=${guess}`)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        if (json == "Entry word not found") {
+          showMessage("Not a Word!");
+          return;
+        } else {
+          console.log("guess is " + guess + " wordle is " + wordle);
+          flipTile();
+          if (wordle == guess) {
+            showMessage("Good Job!");
+            isGameOver = true;
+            return;
+          } else {
+            if (currentRow >= 5) {
+              showMessage("U Suck!");
+              isGameOver = true;
+              return;
+            }
+            if (currentRow < 5) {
+              currentRow++;
+              currentTile = 0;
+            }
+          }
+        }
+      })
+      .catch((error) => console.log(error));
   }
 };
 
