@@ -1,7 +1,8 @@
 * {
   color: #000000;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bold;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: bolder;
 }
 
 body {
@@ -67,6 +68,8 @@ body {
   color: #000000;
   margin: 2px;
   border-radius: 4px;
+  font-size: large;
+  font-weight: bolder;
 }
 
 .tile.flip {
