@@ -216,7 +216,7 @@ const flipTile = () => {
         tile.classList.add("flip");
         tile.classList.add(guess[index].color);
         addColorToKey(guess[index].letter, guess[index].color);
-      }, 250 * index);
+      }, 375 * index);
     });
   });
 };
