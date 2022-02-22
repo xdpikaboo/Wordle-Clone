@@ -4,6 +4,7 @@ const messageDisplay = document.querySelector(".message-container");
 
 let isGameOver = false;
 let wordle;
+var key = config.SECRET_API_KEY;
 
 const getWordle = () => {
   fetch(
@@ -12,7 +13,7 @@ const getWordle = () => {
       method: "GET",
       headers: {
         "x-rapidapi-host": "random-words5.p.rapidapi.com",
-        "x-rapidapi-key": "82d3059513msh2cf51c4b98b492dp1aa518jsnb06dd1b8449b",
+        "x-rapidapi-key": key,
       },
     }
   )
@@ -140,8 +141,7 @@ const checkRow = () => {
         method: "GET",
         headers: {
           "x-rapidapi-host": "twinword-word-graph-dictionary.p.rapidapi.com",
-          "x-rapidapi-key":
-            "82d3059513msh2cf51c4b98b492dp1aa518jsnb06dd1b8449b",
+          "x-rapidapi-key": key,
         },
       }
     )
@@ -159,7 +159,7 @@ const checkRow = () => {
             return;
           } else {
             if (currentRow >= 5) {
-              showMessage("U Suck!");
+              showMessage("Game Over! Wordle is " + wordle);
               isGameOver = true;
               return;
             }
