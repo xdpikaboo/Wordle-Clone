@@ -159,7 +159,7 @@ const checkRow = () => {
             return;
           } else {
             if (currentRow >= 5) {
-              showMessage("U Suck!");
+              showMessage("Game Over! Word is " + wordle);
               isGameOver = true;
               return;
             }
